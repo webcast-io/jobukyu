@@ -5,4 +5,4 @@ node_js:
 services: 
   - mongodb
 
-script: npm test
+script: npm run config && npm test
