@@ -3,6 +3,7 @@ Jobukyu
 
 A flexible, REST-based job queue. 
 
+[![Build Status](https://travis-ci.org/sc-live/jobukyu.png?branch=master)](https://travis-ci.org/sc-live/jobukyu)
 
 Features
 ---
