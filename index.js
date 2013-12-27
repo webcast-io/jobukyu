@@ -110,7 +110,7 @@ app.use(connectRoute(function (router) {
 // Start the server
 //
 http.createServer(app).listen(config.port, function(){
-    console.log('Queue is listening on port', config.port);
+    console.log('Jobukyu is listening on port', config.port);
 });
 
 

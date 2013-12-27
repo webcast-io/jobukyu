@@ -465,7 +465,7 @@ describe('API', function () {
                 assert.equal('process pdf 1 on dev'  , body[0].name);
                 done(err);
 
-            });            
+            });
 
         });
 
@@ -492,15 +492,15 @@ describe('API', function () {
             it('should return the job object', function(done) {
                 
                 var jobSeedData         = {
-                    name                : 'An example job for a presentation',
+                    name                : 'An example job for an item',
                     type                : 'process_pdf',
                     priority            : 5,
                     metadata            : {
-                      presentation_id   : '39ej29dj92j0d2',
-                      input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                      item_id           : '39ej29dj92j0d2',
+                      input             : 'http://my-site-url.com/path-to-results.pdf'
                     },
                     webhooks            : {
-                      completed         : [{url: 'http://axisto-live.com/api/presentations/39ej29dj92j0d2', method: 'PUT'}]
+                      completed         : [{url: 'http://my-site-url.com/api/items/39ej29dj92j0d2', method: 'PUT'}]
                     }
 
                 };
@@ -508,8 +508,8 @@ describe('API', function () {
                 request.post({url: url + '/jobs', body: {job: jobSeedData}, json: true}, function (err, res, body) {
 
                     assert.equal('new', body.status);
-                    assert.equal('http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf', body.metadata.input);
-                    assert.equal('http://axisto-live.com/api/presentations/39ej29dj92j0d2', body.webhooks.completed[0].url);
+                    assert.equal('http://my-site-url.com/path-to-results.pdf', body.metadata.input);
+                    assert.equal('http://my-site-url.com/api/items/39ej29dj92j0d2', body.webhooks.completed[0].url);
                     assert.equal(201, res.statusCode);
                     done(err);
 
@@ -551,12 +551,12 @@ describe('API', function () {
                 // create a job, based on this seed data
                 //
                 var jobSeedData         = {
-                    name                : 'An example job for a presentation',
+                    name                : 'An example job for an item',
                     type                : 'process_pdf',
                     priority            : 5,
                     metadata            : {
-                      presentation_id   : '39ej29dj92j0d2',
-                      input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                      item_id           : '39ej29dj92j0d2',
+                      input             : 'http://my-site-url.com/path-to-results.pdf'
                     }
 
                 };
@@ -618,12 +618,12 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   }
 
               };
@@ -696,15 +696,15 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   },
                   webhooks            : {
-                    processing        : [{url:  'http://axisto-live.com/api/presentations/39ej29dj92j0d2/in_progress', method: 'GET'}]
+                    processing        : [{url:  'http://my-site-url.com/api/items/39ej29dj92j0d2/in_progress', method: 'GET'}]
                   }
 
               };
@@ -727,6 +727,10 @@ describe('API', function () {
 
             it('should return the job with the status of processing', function (done) {
 
+                nock('http://my-site-url.com')
+                .get('/api/items/39ej29dj92j0d2/in_progress')
+                .reply(200, {_id:'39ej29dj92j0d2'});
+
                 request.put({url: url + '/jobs/' + id + '/take', json: true}, function (err, res, body) {
 
                     assert.equal('processing', body.status);
@@ -741,18 +745,18 @@ describe('API', function () {
 
             it('should execute any webhooks for the processing state', function (done) {
 
-                var expectedWebhook = nock('http://axisto-live.com')
-                .get('/api/presentations/39ej29dj92j0d2/in_progress')
+                var expectedWebhook = nock('http://my-site-url.com')
+                .get('/api/items/39ej29dj92j0d2/in_progress')
                 .reply(200, {_id:'39ej29dj92j0d2'});
 
-                request.put({url: url + '/jobs/' + id + '/take', json: true}, function (err, res, body) {
+                request.put({url: url + '/jobs/' + id + '/take', json: true}, function (err) {
 
                     setTimeout(function () {
                         assert(expectedWebhook.isDone());
                         done(err);
                     }, 100);
 
-                });                
+                });
             });
 
         });
@@ -786,16 +790,16 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   status              : 'processing',
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   },
                   webhooks            : {
-                    completed         : [{url: 'http://axisto-live.com/api/presentations/39ej29dj92j0d2', method: 'PUT'}]
+                    completed         : [{url: 'http://my-site-url.com/api/items/39ej29dj92j0d2', method: 'PUT'}]
                   }
 
               };
@@ -857,16 +861,16 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   status              : 'processing',
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   },
                   webhooks            : {
-                    completed         : [{url: 'http://staging.axisto-live.com/api/presentations/39ej29dj92j0d2', method: 'PUT', data: "dataToSend"}]
+                    completed         : [{url: 'http://my-site-url.com/api/items/39ej29dj92j0d2', method: 'PUT', data: 'dataToSend'}]
                   }
 
               };
@@ -887,6 +891,10 @@ describe('API', function () {
 
             it('should return the amended job with a status of complete, and amended metadata about the complete job', function (done) {
 
+                nock('http://my-site-url.com')
+                .put('/api/items/39ej29dj92j0d2')
+                .reply(200, {_id:'39ej29dj92j0d2'});
+
                 request.put({url: url + '/jobs/' + id + '/complete', json: true}, function (err, res, body) {
 
                     assert.equal('completed', body.status);
@@ -901,32 +909,32 @@ describe('API', function () {
 
             it('should if specified, send scoped metadata to the webhook', function (done) {
 
-                var presentation = {
-                    name : "FX Results 2013",
-                    url  : "http://tango.s3.amazonaws.com/presentations/39ej29dj92j0d2/pdf/fx-results-2013.pdf"
+                var item = {
+                    name : 'FX Results 2013',
+                    url  : 'http://tango.s3.amazonaws.com/items/39ej29dj92j0d2/pdf/fx-results-2013.pdf'
                 };
 
                 var job = {
                     metadata: {
                         dataToSend: {
-                            presentation: presentation
+                            item: item
                         }
                     }
-                }
+                };
 
 
-                var expectedWebhook = nock('http://staging.axisto-live.com')
-                .put('/api/presentations/39ej29dj92j0d2', {presentation: presentation})
+                var expectedWebhook = nock('http://my-site-url.com')
+                .put('/api/items/39ej29dj92j0d2', {item: item})
                 .reply(201, {_id:'39ej29dj92j0d2'});
 
-                request.put({url: url + '/jobs/' + id + '/complete', body: {job: job}, json: true}, function(err, res, body) {
+                request.put({url: url + '/jobs/' + id + '/complete', body: {job: job}, json: true}, function(err) {
 
                     setTimeout(function () {
                         assert(expectedWebhook.isDone());
                         done(err);
                     }, 100);
 
-                });                
+                });
 
             });
 
@@ -961,13 +969,13 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   status              : 'processing',
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   }
 
               };
@@ -993,11 +1001,11 @@ describe('API', function () {
                 request.put({url: url + '/jobs/' + id + '/fail', body: {job: {metadata: metadata}}, json: true}, function (err, res, body) {
 
                     assert.equal('failed', body.status);
-                    assert.equal(metadata.error, body.metadata.error);                    
+                    assert.equal(metadata.error, body.metadata.error);
                     assert.equal(201, res.statusCode);
                     done(err);
 
-                });                
+                });
 
             });
 
@@ -1032,13 +1040,13 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   status              : 'processing',
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   }
 
               };
@@ -1068,7 +1076,7 @@ describe('API', function () {
                     assert.equal(201, res.statusCode);
                     done(err);
 
-                });                
+                });
 
             });
 
@@ -1095,13 +1103,13 @@ describe('API', function () {
               if (err) throw err;
 
               var jobSeedData         = {
-                  name                : 'An example job for a presentation',
+                  name                : 'An example job for an item',
                   type                : 'process_pdf',
                   priority            : 5,
                   status              : 'processing',
                   metadata            : {
-                    presentation_id   : '39ej29dj92j0d2',
-                    input             : 'http://axisto-live.com/temp/presentations/39ej29dj92j0d2/pdf/financial-results-2013.pdf'
+                    item_id           : '39ej29dj92j0d2',
+                    input             : 'http://my-site-url.com/path-to-results.pdf'
                   }
               };
 
@@ -1123,15 +1131,15 @@ describe('API', function () {
 
                 request.del({url: url + '/jobs/' + id, json: true}, function (err, res, body) {
 
-                    assert.equal(id, body.id);                    
+                    assert.equal(id, body.id);
                     assert.equal(200, res.statusCode);
 
                     request.get({url: url + '/jobs', json: true}, function (err, res, body) {
-                        assert.deepEqual([], body);                    
+                        assert.deepEqual([], body);
                         assert.equal(200, res.statusCode);
-                        done(err);                  
+                        done(err);
                     });
-                });                
+                });
 
             });
 

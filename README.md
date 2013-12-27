@@ -1,4 +1,4 @@
-jobukyu
+Jobukyu
 =======
 
 A flexible, REST-based job queue. 
@@ -10,6 +10,17 @@ Features
 - Create, modify, and remove jobs via a REST API
 - Store arbitrary data in the job
 - Transmit data on job updates via Web Hooks
+
+Why Jobukyu?
+---
+
+At Axisto Media, we had a requirement to run a processor-intensive task (generating images of slides from a PDF file) on a server separate to those running the web application.
+
+We originally tried Kue, but encountered issues using it, and so decided to create a tool that handled failing jobs gracefully.
+
+In order to cater for the different kind of processor-intensive jobs we handle at Axisto, we created a tool that did not require implicit knowledge of our web application - it simply provided a REST API that the web application could interact with, store any kind of JSON data that we needed the job worker to know, and a way for the Job Queue to communicate the state of those jobs back to the web application.
+
+
 
 Dependencies
 ---
