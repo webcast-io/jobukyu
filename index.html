@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Jobukyu by sc-live</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Jobukyu</h1>
+        <h2>A flexible, REST-based job queue</h2>
+        <a href="https://github.com/sc-live/jobukyu" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="jobukyu" class="anchor" href="#jobukyu"><span class="octicon octicon-link"></span></a>Jobukyu</h1>
+
+<p>A flexible, REST-based job queue. </p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Create, modify, and remove jobs via a REST API</li>
+<li>Store arbitrary data in the job</li>
+<li>Transmit data on job updates via Web Hooks</li>
+</ul><h2>
+<a name="why-jobukyu" class="anchor" href="#why-jobukyu"><span class="octicon octicon-link"></span></a>Why Jobukyu?</h2>
+
+<p>At Axisto Media, we had a requirement to run a processor-intensive task (generating images of slides from a PDF file) on a server separate to those running the web application.</p>
+
+<p>We originally tried Kue, but encountered issues using it, and so decided to create a tool that handled failing jobs gracefully.</p>
+
+<p>In order to cater for the different kind of processor-intensive jobs we handle at Axisto, we created a tool that did not require implicit knowledge of our web application - it simply provided a REST API that the web application could interact with, store any kind of JSON data that we needed the job worker to know, and a way for the Job Queue to communicate the state of those jobs back to the web application.</p>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<ul>
+<li>Node.js (0.10+)</li>
+<li>MongoDB (2.4.6+)</li>
+</ul><h2>
+<a name="installation-and-boot" class="anchor" href="#installation-and-boot"><span class="octicon octicon-link"></span></a>Installation and Boot</h2>
+
+<pre><code>git clone git@github.com:sc-live/jobukyu.git
+cd jobukyu
+npm install
+</code></pre>
+
+<p>Then, make a copy of the config.example.js file</p>
+
+<pre><code>npm run config
+</code></pre>
+
+<p>... and supply your preferred database credentials and port to run the app on.</p>
+
+<p>Boot the server</p>
+
+<pre><code>npm start
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The Job Queue is accessed via a REST API. There is a single resource called <code>job</code>.</p>
+
+<h2>
+<a name="rest-api" class="anchor" href="#rest-api"><span class="octicon octicon-link"></span></a>REST API</h2>
+
+<pre><code>GET     /jobs                 Lists all of the jobs in the queue, regardless of status
+POST    /jobs                 Creates a job
+GET     /jobs/new             Lists all of the jobs that are yet to be processed
+GET     /jobs/processing      Lists all of the jobs that are being processed
+GET     /jobs/completed       Lists all of the jobs that have completed
+GET     /jobs/failed          Lists all of the jobs that failed
+GET     /jobs/search          Search for jobs based on search criteria
+GET     /jobs/:id             Shows a job's details
+PUT     /jobs/:id             Updates a job
+PUT     /jobs/:id/take        Marks a job's status as 'processing', so that no other workers can take it
+PUT     /jobs/:id/release     Marks a job's status as 'new', so that other workers can take it
+PUT     /jobs/:id/complete    Marks a job's status as 'completed'
+PUT     /jobs/:id/fail        Marks a job's status as 'failed'
+PUT     /jobs/:id/retry       Marks a job's status from 'failed' to 'new'
+DELETE  /jobs/:id             Deletes a job from the queue
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/sc-live/jobukyu/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/sc-live/jobukyu/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/sc-live/jobukyu"></a> is maintained by <a href="https://github.com/sc-live">sc-live</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
