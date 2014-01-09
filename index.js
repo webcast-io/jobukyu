@@ -4,7 +4,7 @@
 
 // Dependencies
 //
-var config        = require('./config'),
+var config        = require(process.env.JOBUKYU_CONFIG_PATH || './config'),
     http          = require('http'),
     connect       = require('connect'),
     connectRoute  = require('connect-route'),
