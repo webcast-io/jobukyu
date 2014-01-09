@@ -11,6 +11,7 @@ Features
 - Create, modify, and remove jobs via a REST API
 - Store arbitrary data in the job
 - Transmit data on job updates via Web Hooks
+- Quick start using jobukyu's command line interface
 
 Why Jobukyu?
 ---
@@ -70,3 +71,23 @@ REST API
     PUT     /jobs/:id/retry       Marks a job's status from 'failed' to 'new'
     DELETE  /jobs/:id             Deletes a job from the queue
 
+CLI
+---
+
+The Job Queue can be installed and run from the command line:
+
+Installing npm release:
+
+    $ npm install -g jobukyu
+
+Installing git release:
+
+    $ npm install -g git://github.com/sc-live/jobukyu
+
+Running using CLI
+
+    $ jobukyu
+
+Running useing CLI (with a path to a config file)
+
+    $ jobukyu --config ./my_custom_config.json
