@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+'use strict';
+
+//
+// Dependencies
+//
+
+var argv = require('optimist').argv;
+
+//
+// Run
+//
+
+process.env.JOBUKYU_CONFIG_PATH = argv.config || './config';
+
+require('../index');
