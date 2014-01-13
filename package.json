@@ -1,6 +1,6 @@
 {
   "name": "jobukyu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Job Queue REST API",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sc-live/jobukyu.git"
+    "url": "git://github.com/webcast-io/jobukyu.git"
   },
   "keywords": [
     "job",
@@ -19,9 +19,9 @@
   "author": "Paul Jensen <paul.jensen@axisto.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sc-live/jobukyu/issues"
+    "url": "https://github.com/webcast-io/jobukyu/issues"
   },
-  "homepage": "https://github.com/sc-live/jobukyu",
+  "homepage": "https://github.com/webcast-io/jobukyu",
   "devDependencies": {
     "mocha": "~1.12.1",
     "nock": "~0.22.1"
