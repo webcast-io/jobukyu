@@ -82,7 +82,7 @@ Installing npm release:
 
 Installing git release:
 
-    $ npm install -g git://github.com/sc-live/jobukyu
+    $ npm install -g git://github.com/webcast-io/jobukyu
 
 Running using CLI
 
