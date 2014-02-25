@@ -1,0 +1,28 @@
+{
+  "node": true,
+  "strict": true,
+  "undef": true,
+  "unused": true,
+  "latedef": true,
+  "immed": true,
+  "noarg": true,
+  "indent": 2,
+  "trailing": true,
+  "quotmark": "single",
+  "camelcase": "We have to set this to false in order to support the use of snake case for database table fields",
+  "camelcase": false,
+  "newcap": true,
+  "curly": true,
+  "eqeqeq": true,
+  "predef": [
+    "require",
+    "define",
+    "before",
+    "after",
+    "describe",
+    "it",
+    "beforeEach",
+    "afterEach",
+    "expect"
+  ]
+}

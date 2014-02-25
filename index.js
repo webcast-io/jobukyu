@@ -4,12 +4,11 @@
 
 // Dependencies
 //
-var config        = require(process.env.JOBUKYU_CONFIG_PATH || './config'),
-    http          = require('http'),
-    connect       = require('connect'),
-    connectRoute  = require('connect-route'),
-    mongoose      = require('mongoose');
-
+var config        = require(process.env.JOBUKYU_CONFIG_PATH || './config');
+var http          = require('http');
+var connect       = require('connect');
+var connectRoute  = require('connect-route');
+var mongoose      = require('mongoose');
 
 
 // App
@@ -21,7 +20,7 @@ var app = connect();
 // Use the logger if environment config allows
 //
 if (config.log) {
-    app.use(connect.logger('dev'));
+  app.use(connect.logger('dev'));
 }
 
 
@@ -41,18 +40,18 @@ app.use(connect.json());
 // @next  {Function}  The function to execute once finished
 //
 app.use(function (req,res, next) {
-    res.json = function (statusCodeOrBody, body) {
-        var status = 200;
-        if (typeof statusCodeOrBody === 'number') {
-            status = statusCodeOrBody;
-        } else {
-            body = statusCodeOrBody;
-        }
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = status;
-        res.end(JSON.stringify(body));
-    };
-    next();
+  res.json = function (statusCodeOrBody, body) {
+    var status = 200;
+    if (typeof statusCodeOrBody === 'number') {
+      status = statusCodeOrBody;
+    } else {
+      body = statusCodeOrBody;
+    }
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = status;
+    res.end(JSON.stringify(body));
+  };
+  next();
 });
 
 
@@ -66,7 +65,7 @@ app.db = mongoose.connect(config.mongo.url);
 // Models
 //
 app.models = {
-    job: require('./lib/models/job')(app.db).model
+  job: require('./lib/models/job')(app.db).model
 };
 
 
@@ -74,8 +73,8 @@ app.models = {
 // Controllers
 //
 app.controllers = {
-    jobs: require('./lib/controllers/jobs')(app),
-    site: require('./lib/controllers/site')()
+  jobs: require('./lib/controllers/jobs')(app),
+  site: require('./lib/controllers/site')()
 };
 
 
@@ -86,22 +85,22 @@ app.controllers = {
 
 app.use(connectRoute(function (router) {
 
-    router.get('/',                     app.controllers.site.index);
-    router.get('/jobs',                 app.controllers.jobs.index);
-    router.post('/jobs',                app.controllers.jobs.create);
-    router.get('/jobs/search',          app.controllers.jobs.search);
-    router.get('/jobs/new',             app.controllers.jobs.new);
-    router.get('/jobs/processing',      app.controllers.jobs.processing);
-    router.get('/jobs/completed',       app.controllers.jobs.completed);
-    router.get('/jobs/failed',          app.controllers.jobs.failed);
-    router.get('/jobs/:id',             app.controllers.jobs.show);
-    router.put('/jobs/:id',             app.controllers.jobs.update);
-    router.put('/jobs/:id/take',        app.controllers.jobs.take);
-    router.put('/jobs/:id/release',     app.controllers.jobs.release);
-    router.put('/jobs/:id/complete',    app.controllers.jobs.complete);
-    router.put('/jobs/:id/fail',        app.controllers.jobs.fail);
-    router.put('/jobs/:id/retry',       app.controllers.jobs.retry);
-    router.delete('/jobs/:id',          app.controllers.jobs.delete);
+  router.get('/',                     app.controllers.site.index);
+  router.get('/jobs',                 app.controllers.jobs.index);
+  router.post('/jobs',                app.controllers.jobs.create);
+  router.get('/jobs/search',          app.controllers.jobs.search);
+  router.get('/jobs/new',             app.controllers.jobs.new);
+  router.get('/jobs/processing',      app.controllers.jobs.processing);
+  router.get('/jobs/completed',       app.controllers.jobs.completed);
+  router.get('/jobs/failed',          app.controllers.jobs.failed);
+  router.get('/jobs/:id',             app.controllers.jobs.show);
+  router.put('/jobs/:id',             app.controllers.jobs.update);
+  router.put('/jobs/:id/take',        app.controllers.jobs.take);
+  router.put('/jobs/:id/release',     app.controllers.jobs.release);
+  router.put('/jobs/:id/complete',    app.controllers.jobs.complete);
+  router.put('/jobs/:id/fail',        app.controllers.jobs.fail);
+  router.put('/jobs/:id/retry',       app.controllers.jobs.retry);
+  router.delete('/jobs/:id',          app.controllers.jobs.delete);
 
 }));
 
@@ -110,7 +109,7 @@ app.use(connectRoute(function (router) {
 // Start the server
 //
 http.createServer(app).listen(config.port, function(){
-    console.log('Jobukyu is listening on port', config.port);
+  console.log('Jobukyu is listening on port', config.port);
 });
 
 
