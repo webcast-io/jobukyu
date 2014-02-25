@@ -26,7 +26,8 @@
     "mocha": "~1.12.1",
     "nock": "~0.22.1",
     "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.8.0"
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-mocha-test": "0.7.0"
   },
   "dependencies": {
     "connect": "2.9.0",

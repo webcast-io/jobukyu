@@ -5,4 +5,9 @@ node_js:
 services: 
   - mongodb
 
-script: npm run config && npm test
+env:
+  matrix:
+    - TEST_CMD="mocha"
+    - TEST_CMD="lint"
+
+script: npm run config && grunt travis
