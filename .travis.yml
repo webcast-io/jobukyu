@@ -5,7 +5,4 @@ node_js:
 services: 
   - mongodb
 
-before_script:
-  - npm install -g grunt
-
-script: npm run config && grunt travis
+script: npm run config && npm test
