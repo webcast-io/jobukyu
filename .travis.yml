@@ -9,8 +9,11 @@ env:
   matrix:
     - TEST_CMD="mocha"
     - TEST_CMD="lint"
-    
+
 before_script:
   - npm install -g grunt-cli
 
 script: npm run config && grunt travis
+
+after_script:
+  - if [ "$TEST_CMD" = 'mocha' ]; then npm run coveralls; fi
