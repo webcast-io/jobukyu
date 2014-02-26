@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - 0.10
+  - "0.10"
+  - "0.8"
 
 services: 
   - mongodb
@@ -9,7 +10,7 @@ env:
   matrix:
     - TEST_CMD="mocha"
     - TEST_CMD="lint"
-    
+
 before_script:
   - npm install -g grunt-cli
 
