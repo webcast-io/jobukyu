@@ -33,7 +33,7 @@ Dependencies
 Installation and Boot
 ---
 
-    git clone git@github.com:sc-live/jobukyu.git
+    git clone git://github.com/webcast-io/jobukyu
     cd jobukyu
     npm install
 
