@@ -7,11 +7,16 @@
 //
 
 var argv = require('optimist').argv;
+var path = require('path');
 
 //
 // Run
 //
 
-process.env.JOBUKYU_CONFIG_PATH = argv.config || './config';
+process.env.JOBUKYU_CONFIG_PATH = process.env.JOBUKYU_CONFIG_PATH || argv.config || './config';
+
+if(argv['default-config']) {
+  process.env.JOBUKYU_CONFIG_PATH = path.resolve(__dirname + '/../config.example.js');
+}
 
 require('../index');
