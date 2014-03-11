@@ -1,6 +1,6 @@
 {
   "name": "jobukyu",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A Job Queue REST API",
   "main": "index.js",
   "scripts": {
