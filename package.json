@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "config": "cp config.example.js config.js",
-    "test": "NODE_ENV=test node_modules/.bin/mocha"
+    "test": "NODE_ENV=test node_modules/.bin/mocha",
+    "coverage": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcov -- -R spec test/*.js",
+    "coveralls": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec test/*.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -27,7 +29,9 @@
     "nock": "~0.22.1",
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-mocha-test": "0.7.0"
+    "grunt-mocha-test": "0.7.0",
+    "istanbul": "~0.2.4",
+    "coveralls": "~2.7.1"
   },
   "dependencies": {
     "connect": "2.9.0",
