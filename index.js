@@ -4,11 +4,20 @@
 
 // Dependencies
 //
-var config        = require(process.env.JOBUKYU_CONFIG_PATH || './config');
+
 var http          = require('http');
+var path          = require('path');
 var connect       = require('connect');
 var connectRoute  = require('connect-route');
 var mongoose      = require('mongoose');
+
+var configPath = path.resolve(process.env.JOBUKYU_CONFIG_PATH || './config'), config;
+try {
+  config = require(process.env.JOBUKYU_CONFIG_PATH || './config');
+} catch (e) {
+  console.error('Unable to open config module/file ' + configPath);
+  process.exit(1);
+}
 
 
 // App
