@@ -5,6 +5,7 @@ A flexible, REST-based job queue.
 
 [![Build Status](https://travis-ci.org/webcast-io/jobukyu.png?branch=master)](https://travis-ci.org/webcast-io/jobukyu)
 [![Coverage Status](https://coveralls.io/repos/webcast-io/jobukyu/badge.png?branch=master)](https://coveralls.io/r/webcast-io/jobukyu?branch=master)
+[![Code Climate](https://codeclimate.com/github/webcast-io/jobukyu.png)](https://codeclimate.com/github/webcast-io/jobukyu)
 
 Features
 ---
