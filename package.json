@@ -39,7 +39,8 @@
     "lodash": "~2.0.0",
     "mongoose": "~3.6.19",
     "request": "~2.27.0",
-    "optimist": "~0.6.0"
+    "optimist": "~0.6.0",
+    "basic-auth": "0.0.1"
   },
   "bin": "bin/jobukyu"
 }

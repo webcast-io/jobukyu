@@ -83,7 +83,8 @@ app.models = {
 //
 app.controllers = {
   jobs: require('./lib/controllers/jobs')(app),
-  site: require('./lib/controllers/site')()
+  site: require('./lib/controllers/site')(),
+  auth: require('./lib/controllers/auth')(config)
 };
 
 
@@ -91,6 +92,8 @@ app.controllers = {
 ////////////////
 /* API routes */
 ////////////////
+
+app.use(app.controllers.auth.isAuth);
 
 app.use(connectRoute(function (router) {
 
