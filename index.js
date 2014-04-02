@@ -26,6 +26,8 @@ function createApp(config, mongo) {
   app.use(connect.query());
   app.use(connect.json());
 
+  app.use(require('./lib/res.json.js'));
+
   // Database connection
   //
   app.db = (mongo) ? mongo : mongoose.connect(config.mongo.url);

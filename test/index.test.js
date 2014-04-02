@@ -8,7 +8,7 @@ var assert    = require('assert');
 var config    = require('../config');
 var nock      = require('nock');
 var http      = require('http');
-
+var _         = require('lodash');
 
 // The url used for HTTP requests to the API
 //
@@ -19,16 +19,6 @@ var url = 'http://localhost:' + config.port;
 // Create Queue API App for the tests
 //
 var app = require('../index')(config);
-
-
-var authConfig = config;
-config.port ++;
-config.auth = {
-  username: 'beep',
-  password: 'boop'
-};
-var authUrl = 'http://localhost:' + authConfig.port;
-var authApp = require('../index')(authConfig, app.db);
 
 
 
@@ -1165,8 +1155,18 @@ describe('API', function () {
 
   describe('with authentication', function() {
 
+    var authConfig = _.clone(config);
+    authConfig.port ++;
+    authConfig.auth = {
+      username: 'beep',
+      password: 'boop'
+    };
+    var authUrl = 'http://localhost:' + authConfig.port;
+
+
     before(function(done) {
-      http.createServer(authApp).listen(config.port, done);
+      var authApp = require('../index')(authConfig, app.db);
+      http.createServer(authApp).listen(authConfig.port, done);
     });
 
     it('should send a 403 status code if no auth given', function(done) {
