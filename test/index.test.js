@@ -7,8 +7,8 @@ var request   = require('request');
 var assert    = require('assert');
 var config    = require('../config');
 var nock      = require('nock');
-
-
+var http      = require('http');
+var _         = require('lodash');
 
 // The url used for HTTP requests to the API
 //
@@ -16,14 +16,17 @@ var url = 'http://localhost:' + config.port;
 
 
 
-// Boot the Queue API for the tests
+// Create Queue API App for the tests
 //
-var app = require('../index');
+var app = require('../index')(config);
 
 
 
 describe('API', function () {
 
+  before(function(done) {
+    http.createServer(app).listen(config.port, done);
+  });
 
 
   describe('GET /jobs', function () {
@@ -1147,6 +1150,58 @@ describe('API', function () {
 
     });
 
+
   });
 
+  describe('with authentication', function() {
+
+    var authConfig = _.clone(config);
+    authConfig.port ++;
+    authConfig.auth = {
+      username: 'beep',
+      password: 'boop'
+    };
+    var authUrl = 'http://localhost:' + authConfig.port;
+
+
+    before(function(done) {
+      var authApp = require('../index')(authConfig, app.db);
+      http.createServer(authApp).listen(authConfig.port, done);
+    });
+
+    it('should send a 403 status code if no auth given', function(done) {
+      request(authUrl, function(err, res, body) {
+        assert.ifError(err);
+        console.log(body);
+        assert.equal(res.statusCode, 403);
+        done();
+      });
+    });
+
+    it('should send a 403 status code if wrong auth given', function(done) {
+      request({
+        url: authUrl,
+        auth: {
+          user: 'nouser',
+          pass: 'withawrongpass'
+        }
+      }, function(err, res) {
+        assert.ifError(err);
+        assert.equal(res.statusCode, 403);
+        done();
+      });
+    });
+
+    it('should send a 200 status code if correct auth given', function(done) {
+      request({
+        url: authUrl,
+        auth: authConfig.auth
+      }, function(err, res) {
+        assert.ifError(err);
+        assert.equal(res.statusCode, 200);
+        done();
+      });
+    });
+
+  });
 });
