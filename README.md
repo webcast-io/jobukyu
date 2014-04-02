@@ -11,6 +11,7 @@ Features
 ---
 
 - Create, modify, and remove jobs via a REST API
+- Basic authentication
 - Store arbitrary data in the job
 - Transmit data on job updates via Web Hooks
 - Quick start using jobukyu's command line interface
@@ -54,6 +55,16 @@ Usage
 
 The Job Queue is accessed via a REST API. There is a single resource called <code>job</code>.
 
+Adding Authentication
+---
+
+In your config file add the hash `auth` with elements username and password.
+
+    auth: {
+      username: 'CrazyEd',
+      password: 'd03sJ0bukyu'
+    }
+
 REST API
 ---
 
@@ -86,10 +97,14 @@ Installing git release:
 
     $ npm install -g git://github.com/webcast-io/jobukyu
 
-Running using CLI
+Run using CLI
 
     $ jobukyu
 
-Running useing CLI (with a path to a config file)
+Run using CLI (with a path to a config file)
 
     $ jobukyu --config ./my_custom_config.json
+
+Run using CLI (with a default/example config)
+
+    $ jobukyu --default-config
