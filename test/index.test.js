@@ -1170,9 +1170,8 @@ describe('API', function () {
     });
 
     it('should send a 403 status code if no auth given', function(done) {
-      request(authUrl, function(err, res, body) {
+      request(authUrl, function(err, res) {
         assert.ifError(err);
-        console.log(body);
         assert.equal(res.statusCode, 403);
         done();
       });
