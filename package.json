@@ -4,7 +4,7 @@
   "description": "A Job Queue REST API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "./bin/jobukyu",
     "config": "cp config.example.js config.js",
     "test": "NODE_ENV=test node_modules/.bin/mocha",
     "coverage": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcov -- -R spec test/*.js",
