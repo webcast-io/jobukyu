@@ -15,15 +15,18 @@ var createApp = require('../index');
 // Run
 //
 
-process.env.JOBUKYU_CONFIG_PATH = process.env.JOBUKYU_CONFIG_PATH || argv.config || './config';
+var configPath, config;
 
 if(argv['default-config']) {
-  process.env.JOBUKYU_CONFIG_PATH = path.resolve(__dirname + '/../config.example.js');
+  configPath = __dirname + '/../config.example.js';
+} else {
+  configPath = argv.config || './config';
 }
 
-var configPath = path.resolve(process.env.JOBUKYU_CONFIG_PATH || './config'), config;
+configPath = path.resolve(configPath || './config');
+
 try {
-  config = require(process.env.JOBUKYU_CONFIG_PATH || './config');
+  config = require(configPath);
 } catch (e) {
   console.error('Unable to open config module/file ' + configPath);
   process.exit(1);
