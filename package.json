@@ -4,7 +4,7 @@
   "description": "A Job Queue REST API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "./bin/jobukyu",
     "config": "cp config.example.js config.js",
     "test": "NODE_ENV=test node_modules/.bin/mocha",
     "coverage": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcov -- -R spec test/*.js",
@@ -39,7 +39,8 @@
     "lodash": "~2.0.0",
     "mongoose": "~3.6.19",
     "request": "~2.27.0",
-    "optimist": "~0.6.0"
+    "optimist": "~0.6.0",
+    "basic-auth": "0.0.1"
   },
   "bin": "bin/jobukyu"
 }

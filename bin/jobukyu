@@ -6,17 +6,37 @@
 // Dependencies
 //
 
-var argv = require('optimist').argv;
-var path = require('path');
+var argv      = require('optimist').argv;
+var path      = require('path');
+var http      = require('http');
+var createApp = require('../index');
 
 //
 // Run
 //
 
-process.env.JOBUKYU_CONFIG_PATH = process.env.JOBUKYU_CONFIG_PATH || argv.config || './config';
+var configPath, config;
 
 if(argv['default-config']) {
-  process.env.JOBUKYU_CONFIG_PATH = path.resolve(__dirname + '/../config.example.js');
+  configPath = __dirname + '/../config.example.js';
+} else {
+  configPath = argv.config || './config';
 }
 
-require('../index');
+configPath = path.resolve(configPath || './config');
+
+try {
+  config = require(configPath);
+} catch (e) {
+  console.error('Unable to open config module/file ' + configPath);
+  process.exit(1);
+}
+
+var app = createApp(config);
+
+
+// Start the server
+//
+http.createServer(app).listen(config.port, function(){
+  console.log('Jobukyu is listening on port', config.port);
+});
