@@ -489,7 +489,7 @@ describe('API', function () {
 
     describe('if successful', function () {
 
-      it('should return the job object', function(done) {
+      it('should return the job object, and fire any completed webhooks', function(done) {
 
         var jobSeedData         = {
           name                : 'An example job for an item',
@@ -523,7 +523,7 @@ describe('API', function () {
 
     describe('if not successful', function () {
 
-      it('should show an error, and explain what is wrong');
+      it('should show an error, explain what went wrong, and fire any failed webhooks');
       // TODO - test when:
       // * name is not provided, or blank
       // * type is not provided, or blank
@@ -1146,7 +1146,18 @@ describe('API', function () {
 
     describe('when not successful', function () {
 
-      it('should show the error, and explain what is wrong');
+      it('should show the error, and explain what is wrong', function (done) {
+
+        // Attempt to delete a job with a malformed, incorrect id
+
+        request.del({url: url + '/jobs/' + '9h87g76f86df', json: true}, function (err, res) {
+
+          assert.equal(422, res.statusCode);
+          done(err);
+          
+        });
+
+      });
 
     });
 
