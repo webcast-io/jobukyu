@@ -1,0 +1,8 @@
+web:
+  build: .
+  links:
+   - mongo
+  ports:
+   - "3800:3800"
+mongo:
+  image: mongo:2.7.5

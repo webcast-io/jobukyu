@@ -27,8 +27,15 @@ var config = {
       url: 'mongodb://localhost/jobukyu_test'
     },
     log: false
-  }
+  },
 
+  docker: {
+    port: 3800,
+    mongo: {
+      url: 'mongodb://' + process.env.MONGO_1_PORT_27017_TCP_ADDR + ':' + process.env.MONGO_1_PORT_27017_TCP_PORT + '/jobukyu_docker'
+    },
+    log: false
+  }
 
 
 };
