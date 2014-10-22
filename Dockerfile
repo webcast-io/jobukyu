@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common git
 RUN add-apt-repository ppa:chris-lea/node.js 
 RUN apt-get update
-RUN apt-get install -y nodejs=0.10.31-1chl1~trusty1
+RUN apt-get install -y nodejs
 
 ENV NODE_ENV docker
 
