@@ -51,3 +51,9 @@ var env = process.env.NODE_ENV || 'development';
 // Expose the public API
 //
 module.exports = config[env];
+
+// Overwrite for Heroku Instances
+
+if(process.env.MONGOHQ_URL) {
+  module.exports.mongo.url = process.env.MONGOHQ_URL;
+}
