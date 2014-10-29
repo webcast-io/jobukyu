@@ -11,5 +11,8 @@
   "success_url": "/",
   "addons": [
     "mongohq"
-  ]
+  ],
+  "env": {
+    "DEFAULT_CONFIG": "1"
+  }
 }

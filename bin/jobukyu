@@ -17,7 +17,7 @@ var createApp = require('../index');
 
 var configPath, config;
 
-if(argv['default-config']) {
+if(argv['default-config'] || process.env.DEFAULT_CONFIG) {
   configPath = __dirname + '/../config.example.js';
 } else {
   configPath = argv.config || './config';
