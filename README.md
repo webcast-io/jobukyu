@@ -109,3 +109,9 @@ Run using CLI (with a path to a config file)
 Run using CLI (with a default/example config)
 
     $ jobukyu --default-config
+
+Deployment
+----------
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
