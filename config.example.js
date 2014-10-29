@@ -57,3 +57,7 @@ module.exports = config[env];
 if(process.env.MONGOHQ_URL) {
   module.exports.mongo.url = process.env.MONGOHQ_URL;
 }
+
+if(process.env.PORT) {
+  module.exports.port = process.env.PORT;
+}
