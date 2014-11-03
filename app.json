@@ -1,0 +1,18 @@
+{
+  "name": "Jobukyu",
+  "description": "Job Queue Server",
+  "keywords": [
+    "Job",
+    "Task",
+    "Queue"
+  ],
+  "website": "https://github.com/webcast-io/jobukyu",
+  "repository": "https://github.com/webcast-io/jobukyu",
+  "success_url": "/",
+  "addons": [
+    "mongohq"
+  ],
+  "env": {
+    "DEFAULT_CONFIG": "1"
+  }
+}
