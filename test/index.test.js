@@ -1214,4 +1214,52 @@ describe('API', function () {
     });
 
   });
+
+
+
+    describe('deep merging metadata on complete/fail', function() {
+
+    var id = null;
+
+    beforeEach(function (done) {
+
+      // clear the database, then create a job record
+      // for it
+      app.models.job.remove({}, function (err) {
+
+        if (err) {throw err;}
+
+        var jobSeedData         = {
+          name                : 'An example job for an item',
+          type                : 'process_pdf',
+          priority            : 5,
+          status              : 'processing',
+          metadata            : {
+            cars: { value1: 1, value2: 2 }
+          }
+
+        };
+
+        var job = new app.models.job(jobSeedData);
+        job.save(function (err) {
+          id = job.id;
+          done(err);
+        });
+
+      });
+
+    });
+
+    it('should overwrite old values when deep merging', function(done) {
+      request.put({url: url + '/jobs/' + id + '/complete', json: {
+        job: {metadata: {cars: { value2: 3 }}}
+      }}, function (err, res, body) {
+        assert.equal(3, body.metadata.cars.value2);
+        done(err);
+
+      });
+    });
+
+  });
+
 });
