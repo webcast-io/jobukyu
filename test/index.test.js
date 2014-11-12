@@ -1217,7 +1217,7 @@ describe('API', function () {
 
 
 
-    describe('deep merging metadata on complete/fail', function() {
+  describe('deep merging metadata on complete/fail', function() {
 
     var id = null;
 
