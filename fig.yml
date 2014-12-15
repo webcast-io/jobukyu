@@ -4,5 +4,7 @@ web:
    - mongo
   ports:
    - "3800:3800"
+  restart: always
 mongo:
   image: mongo:2.7.5
+  restart: always
