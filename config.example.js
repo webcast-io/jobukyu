@@ -76,3 +76,15 @@ if(process.env.MONGO_JSON) {
 if(process.env.PORT) {
   module.exports.port = process.env.PORT;
 }
+
+if(process.env.ETCD_ENDPOINT) {
+  var etcd = new (require('node-etcd'))('172.17.42.1', '4001');
+  var reply = etcd.getSync("/services/jobukyu/mongo");
+
+  if(reply.body && reply.body.node && reply.body.node.value) {
+    var mongo = JSON.parse(reply.body.node.value);
+    module.exports.mongo.url = 'mongodb://' + mongo.host + ':' + mongo.port + '/jobukyu';
+  } else {
+    throw new Error('Unable to get info from etcd');
+  }
+}
