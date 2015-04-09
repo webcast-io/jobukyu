@@ -20,4 +20,4 @@ RUN npm install
 
 EXPOSE 3800
 
-CMD npm start
+CMD sudo npm start
