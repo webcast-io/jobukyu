@@ -62,7 +62,7 @@ if(process.env.MONGO_HOST) {
   var host = process.env.MONGO_HOST;
   var port = process.env.MONGO_PORT || 27017;
   var db = process.env.MONGO_DB || 'jobukyu';
-  module.exports.mongo.url = 'mongodb://' + host + ':' + port '/' + db;
+  module.exports.mongo.url = 'mongodb://' + host + ':' + port + '/' + db;
 }
 
 if(process.env.PORT) {
