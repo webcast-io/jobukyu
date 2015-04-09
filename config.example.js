@@ -65,6 +65,14 @@ if(process.env.MONGO_HOST) {
   module.exports.mongo.url = 'mongodb://' + host + ':' + port + '/' + db;
 }
 
+if(process.env.MONGO_JSON) {
+  var mongoJSON = JSON.parse(process.env.MONGO_JSON);
+  var host = processmongoJSON.host || 'localhost';
+  var port = processmongoJSON.host || 27017;
+  var db = processmongoJSON.host || 'jobukyu';
+  module.exports.mongo.url = 'mongodb://' + mongo.host + ':' + mongo.port + '/' + mongo.db;
+}
+
 if(process.env.PORT) {
   module.exports.port = process.env.PORT;
 }
