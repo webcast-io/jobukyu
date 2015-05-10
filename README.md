@@ -3,9 +3,9 @@ Jobukyu
 
 A flexible, REST-based job queue. 
 
-[![Build Status](https://travis-ci.org/webcast-io/jobukyu.png?branch=master)](https://travis-ci.org/webcast-io/jobukyu)
-[![Coverage Status](https://coveralls.io/repos/webcast-io/jobukyu/badge.png?branch=master)](https://coveralls.io/r/webcast-io/jobukyu?branch=master)
-[![Code Climate](https://codeclimate.com/github/webcast-io/jobukyu.png)](https://codeclimate.com/github/webcast-io/jobukyu)
+[![Build Status](https://travis-ci.org/webcast-io/jobukyu.svg?branch=master)](https://travis-ci.org/webcast-io/jobukyu)
+[![Coverage Status](https://coveralls.io/repos/webcast-io/jobukyu/badge.svg?branch=master)](https://coveralls.io/r/webcast-io/jobukyu?branch=master)
+[![Code Climate](https://codeclimate.com/github/webcast-io/jobukyu.svg)](https://codeclimate.com/github/webcast-io/jobukyu)
 [![Codacy Badge](https://www.codacy.com/project/badge/6c6fafd068624d1daf0c7df5b440a1c9)](https://www.codacy.com/public/webcast-io/jobukyu.git)
 
 Features
@@ -113,5 +113,5 @@ Run using CLI (with a default/example config)
 Deployment
 ----------
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
