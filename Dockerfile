@@ -1,13 +1,6 @@
-
-FROM ubuntu:14.04
+FROM node:0.10-onbuild
 
 MAINTAINER Axisto Media
-
-RUN apt-get update
-RUN apt-get install -y software-properties-common git
-RUN add-apt-repository ppa:chris-lea/node.js 
-RUN apt-get update
-RUN apt-get install -y nodejs
 
 ENV NODE_ENV docker
 
@@ -19,5 +12,3 @@ RUN cp config.example.js config.js
 RUN npm install
 
 EXPOSE 3800
-
-CMD sudo npm start
